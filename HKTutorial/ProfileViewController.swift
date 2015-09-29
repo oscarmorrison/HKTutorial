@@ -28,16 +28,18 @@ class ProfileViewController: UITableViewController {
   
   
   func updateHealthInfo() {
-    
     updateProfileInfo();
     updateWeight();
     updateHeight();
-    
   }
   
   func updateProfileInfo()
   {
-    print("TODO: update profile Information")
+    let profile = healthManager?.readProfile()
+    ageLabel.text = profile?.age ==  nil ? kUnknownString : String(profile!.age!)
+    biologicalSexLabel.text = biologicalSexLiteral(profile?.biologicalsex?.biologicalSex)
+    bloodTypeLabel.text = bloodTypeLiteral(profile?.bloodtype?.bloodType)
+    
   }
   
   

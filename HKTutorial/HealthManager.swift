@@ -49,7 +49,45 @@ class HealthManager {
     
   }
   
+  func readProfile()-> (age:Int?, biologicalsex:HKBiologicalSexObject?, bloodtype: HKBloodTypeObject?){
+
+    // Request birthday and calculate the age
+    var age: Int?
+    var biologicalSex:HKBiologicalSexObject?
+    var bloodType: HKBloodTypeObject?
+    
+    //Get user's age
+    var dateOfBirth: NSDate?
+    do{
+      dateOfBirth = try healthkitStore.dateOfBirth()
+    }catch let error as NSError{
+      dateOfBirth = nil
+      print("\(error) error with date of birth")
+    }
+    let now: NSDate = NSDate()
+    let ageComponents = NSCalendar.currentCalendar().components(.Year, fromDate: dateOfBirth!, toDate: now, options: .WrapComponents)
+    age = ageComponents.year
+    
+    //Get user's sex
+    do{
+      biologicalSex = try healthkitStore.biologicalSex()
+    }catch let error as NSError{
+      biologicalSex = nil
+      print("\(error) error with sex")
+    }
+    
+    //Get user's blood type
+    do{
+      bloodType = try healthkitStore.bloodType()
+    }catch let error as NSError{
+      bloodType = nil
+      print("\(error) error with blood type")
+    }
+
+    return (age, biologicalSex, bloodType)
+  }
 }
+
 
 
 
