@@ -22,7 +22,16 @@ class MasterViewController: UITableViewController {
   
   func authorizeHealthKit()
   {
-    print("TODO: Request HealthKit authorization")
+    healthManager.authorizeHealthKit { (success, error) -> Void in
+      if success{
+        print("HealthKit authorized successfully.")
+      }else{
+        print("HealthKit authorization denied!")
+        if error != nil{
+          print(error)
+        }
+      }
+    }
   }
   
   
