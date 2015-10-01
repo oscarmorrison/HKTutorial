@@ -24,6 +24,7 @@ class ProfileViewController: UITableViewController {
   
   var healthManager:HealthManager?
   var bmi:Double?
+  var height, weight: HKQuantitySample?
   
   
   
@@ -42,16 +43,17 @@ class ProfileViewController: UITableViewController {
     
   }
   
+  func updateWeight(){
+    let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)
+    self.healthManager?.readMostRecentSample(sampleType, completion: { (mostRecentWeight, error) -> Void in
+      if error != nil
+    })
+  }
   
   func updateHeight()
   {
     print("TODO: update Height")
     
-  }
-  
-  func updateWeight()
-  {
-    print("TODO: update Weight")
   }
   
   func updateBMI()
